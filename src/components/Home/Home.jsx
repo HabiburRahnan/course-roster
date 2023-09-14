@@ -1,20 +1,38 @@
 import { useEffect, useState } from "react";
 import Cart from "../Cart/Cart";
 import { BsBook } from "react-icons/bs";
+import toast, { Toaster } from "react-hot-toast";
 
 const Home = () => {
   const [registrationCard, setRegistrationCard] = useState([]);
   const [allCredit, setAllCredit] = useState([]);
-
+  const [remaining, setRemaining] = useState(0);
+  const [totalHour, setTotalHour] = useState(0);
   useEffect(() => {
-    fetch(`./course.json`)
+    fetch(`../course.json`)
       .then((res) => res.json())
       .then((data) => setRegistrationCard(data));
   }, []);
 
   const handleSelectItem = (item) => {
-    setAllCredit([...allCredit, item]);
+    const isExist = allCredit.find((list) => list.id == item.id);
+    console.log(isExist);
+    let count = item.credit;
+    if (isExist) {
+      return alert("all ready bok");
+      //   return toast.error("This didn't work.");
+    } else {
+      allCredit.forEach((list) => {
+        count += list.credit;
+      });
+
+      const totalRemaining = 20 - count;
+      setTotalHour(count);
+      setRemaining(totalRemaining);
+      setAllCredit([...allCredit, item]);
+    }
   };
+
   console.log(allCredit);
   return (
     <div>
@@ -55,7 +73,10 @@ const Home = () => {
           ))}
         </div>
         <div className="w-1/3">
-          <Cart allCredit={allCredit}></Cart>
+          <Cart
+            remaining={remaining}
+            totalHour={totalHour}
+            allCredit={allCredit}></Cart>
         </div>
       </div>
     </div>
