@@ -19,17 +19,22 @@ const Home = () => {
     console.log(isExist);
     let count = item.credit;
     if (isExist) {
-      return alert("all ready bok");
-      //   return toast.error("This didn't work.");
+      //   return alert("all ready bok");
+      return toast.error("This didn't work.");
     } else {
       allCredit.forEach((list) => {
         count += list.credit;
       });
 
       const totalRemaining = 20 - count;
-      setTotalHour(count);
-      setRemaining(totalRemaining);
-      setAllCredit([...allCredit, item]);
+
+      if (count > 20) {
+        alert("hour ses r hbr na");
+      } else {
+        setTotalHour(count);
+        setRemaining(totalRemaining);
+        setAllCredit([...allCredit, item]);
+      }
     }
   };
 
