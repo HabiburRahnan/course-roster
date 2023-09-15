@@ -14,7 +14,7 @@ const Cart = ({ allCredit, remaining, totalHour }) => {
           </li>
         ))}
         <h3 className="text-xl font-semibold my-4">
-          Total Credit Hour: {totalHour}
+          Total Credit Hour:{totalHour}
         </h3>
       </div>
     </div>

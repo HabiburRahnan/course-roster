@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import Cart from "../Cart/Cart";
 import { BsBook } from "react-icons/bs";
-import toast, { Toaster } from "react-hot-toast";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
+  const notify = () => toast.error("This course was previously added");
+  const takaSes = () => toast.error("Course time is over");
   const [registrationCard, setRegistrationCard] = useState([]);
   const [allCredit, setAllCredit] = useState([]);
-  const [remaining, setRemaining] = useState(0);
+  const [remaining, setRemaining] = useState(20);
   const [totalHour, setTotalHour] = useState(0);
+
   useEffect(() => {
     fetch(`../course.json`)
       .then((res) => res.json())
@@ -19,8 +23,9 @@ const Home = () => {
     console.log(isExist);
     let count = item.credit;
     if (isExist) {
-      //   return alert("all ready bok");
-      return toast.error("This didn't work.");
+      notify();
+      // return alert("all ready bok");
+      // return toast.error("jdfhs");
     } else {
       allCredit.forEach((list) => {
         count += list.credit;
@@ -29,7 +34,8 @@ const Home = () => {
       const totalRemaining = 20 - count;
 
       if (count > 20) {
-        alert("hour ses r hbr na");
+        // alert("hour ses r hbr na");
+        takaSes();
       } else {
         setTotalHour(count);
         setRemaining(totalRemaining);
@@ -74,6 +80,7 @@ const Home = () => {
                   </button>
                 </div>
               </div>
+              <ToastContainer />
             </div>
           ))}
         </div>
