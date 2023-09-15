@@ -56,10 +56,7 @@ const Home = () => {
               <img className="rounded-2xl" src={item.image} alt="Image" />
               <div className="card-body">
                 <h2 className="card-title ">{item.course_name}</h2>
-                <p className="">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                </p>
+                <p className="">{item.details.slice(0,120)}</p>
                 {/* price and credit section */}
                 <div className="text-lg flex">
                   <p>$ Price:{item.price}</p>
