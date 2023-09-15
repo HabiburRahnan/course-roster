@@ -5,13 +5,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
-  const notify = () => toast.error("This course was previously added");
-  const takaSes = () => toast.error("Course time is over");
   const [registrationCard, setRegistrationCard] = useState([]);
   const [allCredit, setAllCredit] = useState([]);
   const [remaining, setRemaining] = useState(20);
   const [totalHour, setTotalHour] = useState(0);
-
+  const notify = () => toast.error("This course was previously added");
+  const totalCreditHour = () => toast.error("Course time is over");
   useEffect(() => {
     fetch(`../course.json`)
       .then((res) => res.json())
@@ -24,8 +23,6 @@ const Home = () => {
     let count = item.credit;
     if (isExist) {
       notify();
-      // return alert("all ready bok");
-      // return toast.error("jdfhs");
     } else {
       allCredit.forEach((list) => {
         count += list.credit;
@@ -34,8 +31,7 @@ const Home = () => {
       const totalRemaining = 20 - count;
 
       if (count > 20) {
-        // alert("hour ses r hbr na");
-        takaSes();
+        totalCreditHour();
       } else {
         setTotalHour(count);
         setRemaining(totalRemaining);
